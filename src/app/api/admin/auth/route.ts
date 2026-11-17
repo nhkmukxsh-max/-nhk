@@ -1,6 +1,15 @@
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'nhk2026admin';
+
+export async function GET() {
+  const cookieStore = cookies();
+  const token = cookieStore.get('nhk_admin_token');
+  const isAuthenticated = !!token && token.value === 'nhk_authenticated_session';
+
+  return NextResponse.json({ authenticated: isAuthenticated });
+}
 
 export async function POST(request: Request) {
   try {
@@ -43,4 +52,3 @@ export async function DELETE() {
   response.cookies.delete('nhk_admin_token');
   return response;
 }
-

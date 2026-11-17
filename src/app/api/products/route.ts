@@ -1,7 +1,14 @@
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 import { getServerProducts, saveServerProducts } from '@/lib/products.server';
 import { Product } from '@/types';
 import { generateSlug } from '@/lib/utils';
+
+function isUserAuthenticated(): boolean {
+  const cookieStore = cookies();
+  const token = cookieStore.get('nhk_admin_token');
+  return !!token && token.value === 'nhk_authenticated_session';
+}
 
 export async function GET() {
   try {
@@ -16,6 +23,13 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  if (!isUserAuthenticated()) {
+    return NextResponse.json(
+      { error: 'Unauthorized: Admin authentication required to add products' },
+      { status: 401 }
+    );
+  }
+
   try {
     const body = await request.json();
 
@@ -89,6 +103,13 @@ export async function POST(request: Request) {
 }
 
 export async function PUT(request: Request) {
+  if (!isUserAuthenticated()) {
+    return NextResponse.json(
+      { error: 'Unauthorized: Admin authentication required to update products' },
+      { status: 401 }
+    );
+  }
+
   try {
     const body = await request.json();
 
@@ -150,6 +171,13 @@ export async function PUT(request: Request) {
 }
 
 export async function DELETE(request: Request) {
+  if (!isUserAuthenticated()) {
+    return NextResponse.json(
+      { error: 'Unauthorized: Admin authentication required to delete products' },
+      { status: 401 }
+    );
+  }
+
   try {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');

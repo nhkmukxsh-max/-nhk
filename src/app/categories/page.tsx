@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, Compass, Plus } from 'lucide-react';
+import { ArrowRight, Compass } from 'lucide-react';
 import { CATEGORIES } from '@/data/categories';
 import { getServerProducts } from '@/lib/products.server';
 import ProductCard from '@/components/product/ProductCard';
@@ -19,27 +19,17 @@ export default function CategoriesPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 space-y-16">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-        <div className="max-w-2xl">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-soft-sand text-charcoal text-xs font-semibold uppercase tracking-wider mb-3">
-            <Compass className="w-3.5 h-3.5 text-accent-gold" />
-            Thematic Curations
-          </div>
-          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-charcoal font-medium">
-            Explore by Category
-          </h1>
-          <p className="mt-3 text-sm sm:text-base text-muted-grey leading-relaxed">
-            Navigate our editorial recommendations by department. Each collection is vetted for material integrity, aesthetic balance, and real everyday utility.
-          </p>
+      <div className="max-w-2xl">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-soft-sand text-charcoal text-xs font-semibold uppercase tracking-wider mb-3">
+          <Compass className="w-3.5 h-3.5 text-accent-gold" />
+          Thematic Curations
         </div>
-
-        <Link
-          href="/admin"
-          className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-charcoal hover:bg-black text-white text-xs font-semibold shadow-sm transition-all self-start sm:self-auto"
-        >
-          <Plus className="w-4 h-4 text-accent-gold" />
-          <span>Add New Product</span>
-        </Link>
+        <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-charcoal font-medium">
+          Explore by Category
+        </h1>
+        <p className="mt-3 text-sm sm:text-base text-muted-grey leading-relaxed">
+          Navigate our editorial recommendations by department. Each collection is vetted for material integrity, aesthetic balance, and real everyday utility.
+        </p>
       </div>
 
       {/* Categories Sections */}
@@ -65,20 +55,13 @@ export default function CategoriesPage() {
                     <p className="text-sm text-charcoal/80 max-w-lg leading-relaxed">
                       {cat.description}
                     </p>
-                    <div className="pt-3 flex flex-wrap items-center gap-3">
+                    <div className="pt-3">
                       <Link
                         href={`/explore?category=${encodeURIComponent(cat.name)}`}
                         className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-charcoal hover:bg-black text-white text-xs font-medium transition-colors"
                       >
                         <span>Explore Collection ({categoryProducts.length})</span>
                         <ArrowRight className="w-3.5 h-3.5" />
-                      </Link>
-                      <Link
-                        href="/admin"
-                        className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-white hover:bg-soft-beige text-charcoal text-xs font-medium border border-soft-beige transition-colors"
-                      >
-                        <Plus className="w-3.5 h-3.5 text-accent-gold" />
-                        <span>Add to {cat.name}</span>
                       </Link>
                     </div>
                   </div>
@@ -103,10 +86,7 @@ export default function CategoriesPage() {
                 </div>
               ) : (
                 <div className="bg-white rounded-2xl p-6 text-center border border-soft-beige/70 text-xs text-muted-grey">
-                  <span>No products added in {cat.name} yet. </span>
-                  <Link href="/admin" className="text-charcoal font-semibold underline hover:text-accent-gold ml-1">
-                    Add the first product now →
-                  </Link>
+                  <span>Curations arriving soon for this collection. Follow our Pinterest for aesthetic previews.</span>
                 </div>
               )}
             </section>

@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { ArrowUpRight, Heart, Plus } from 'lucide-react';
+import { ArrowUpRight, Heart, Lock } from 'lucide-react';
 import { CATEGORIES } from '@/data/categories';
 
 export default function Footer() {
@@ -78,12 +78,6 @@ export default function Footer() {
                   Get in Touch
                 </Link>
               </li>
-              <li>
-                <Link href="/admin" className="text-charcoal font-medium hover:text-accent-gold transition-colors flex items-center gap-1">
-                  <Plus className="w-3 h-3 text-accent-gold" />
-                  <span>Add Product</span>
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -126,6 +120,12 @@ export default function Footer() {
               <li>
                 <Link href="/terms" className="hover:text-charcoal transition-colors">
                   Terms & Conditions
+                </Link>
+              </li>
+              <li>
+                <Link href="/admin" className="text-muted-grey hover:text-charcoal transition-colors flex items-center gap-1 text-[11px] pt-1">
+                  <Lock className="w-3 h-3 text-muted-grey/60" />
+                  <span>Admin Access</span>
                 </Link>
               </li>
             </ul>

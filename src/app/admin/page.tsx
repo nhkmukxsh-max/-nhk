@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
+  Lock,
   Plus,
   Edit2,
   Trash2,
@@ -16,8 +17,8 @@ import {
   DollarSign,
   ArrowRight,
   Sparkles,
-  Image as ImageIcon,
-  Link as LinkIcon,
+  LogOut,
+  ShieldCheck,
 } from 'lucide-react';
 import { Product, ProductCategory } from '@/types';
 import { formatPrice } from '@/lib/utils';
@@ -35,6 +36,12 @@ const CURATED_IMAGE_PRESETS = [
 ];
 
 export default function AdminPage() {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [checkingAuth, setCheckingAuth] = useState<boolean>(true);
+  const [passcode, setPasscode] = useState<string>('');
+  const [loginError, setLoginError] = useState<string>('');
+  const [isSubmittingAuth, setIsSubmittingAuth] = useState<boolean>(false);
+
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [activeTab, setActiveTab] = useState<'products' | 'links'>('products');
@@ -70,6 +77,20 @@ export default function AdminPage() {
 
   const [formData, setFormData] = useState(initialFormState);
 
+  // Check auth status on mount
+  useEffect(() => {
+    fetch('/api/admin/auth')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.authenticated) {
+          setIsAuthenticated(true);
+          fetchProducts();
+        }
+      })
+      .catch((err) => console.error('Auth verification error:', err))
+      .finally(() => setCheckingAuth(false));
+  }, []);
+
   // Fetch products
   const fetchProducts = async () => {
     try {
@@ -86,9 +107,38 @@ export default function AdminPage() {
     }
   };
 
-  useEffect(() => {
-    fetchProducts();
-  }, []);
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmittingAuth(true);
+    setLoginError('');
+
+    try {
+      const res = await fetch('/api/admin/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: passcode }),
+      });
+
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setIsAuthenticated(true);
+        setPasscode('');
+        fetchProducts();
+      } else {
+        setLoginError(data.error || 'Incorrect admin passcode.');
+      }
+    } catch (err) {
+      setLoginError('Authentication failed. Please check network connection.');
+    } finally {
+      setIsSubmittingAuth(false);
+    }
+  };
+
+  const handleLogout = async () => {
+    await fetch('/api/admin/auth', { method: 'DELETE' });
+    setIsAuthenticated(false);
+    setPasscode('');
+  };
 
   const handleOpenAdd = () => {
     setFormData(initialFormState);
@@ -153,7 +203,8 @@ export default function AdminPage() {
         if (res.ok) {
           setActionMessage({ type: 'success', text: `Product "${formData.name}" updated successfully.` });
         } else {
-          throw new Error('Failed to update product');
+          const errData = await res.json();
+          throw new Error(errData.error || 'Failed to update product');
         }
       } else {
         const res = await fetch('/api/products', {
@@ -164,7 +215,8 @@ export default function AdminPage() {
         if (res.ok) {
           setActionMessage({ type: 'success', text: `Product "${formData.name}" added successfully.` });
         } else {
-          throw new Error('Failed to create product');
+          const errData = await res.json();
+          throw new Error(errData.error || 'Failed to create product');
         }
       }
 
@@ -184,7 +236,8 @@ export default function AdminPage() {
         setDeletingProductId(null);
         fetchProducts();
       } else {
-        throw new Error('Failed to delete product');
+        const errData = await res.json();
+        throw new Error(errData.error || 'Failed to delete product');
       }
     } catch (err: any) {
       setActionMessage({ type: 'error', text: err.message || 'Deletion error' });
@@ -205,6 +258,71 @@ export default function AdminPage() {
     return true;
   });
 
+  if (checkingAuth) {
+    return (
+      <div className="min-h-[60vh] flex items-center justify-center text-xs text-muted-grey">
+        Verifying admin authorization...
+      </div>
+    );
+  }
+
+  // If not authenticated, show protected admin login screen
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-[70vh] flex items-center justify-center px-4 py-16">
+        <div className="w-full max-w-md bg-white rounded-3xl p-8 sm:p-10 border border-soft-beige shadow-editorial text-center space-y-6">
+          <div className="w-12 h-12 rounded-2xl bg-soft-sand flex items-center justify-center mx-auto text-charcoal">
+            <Lock className="w-5 h-5 text-accent-gold" />
+          </div>
+
+          <div>
+            <span className="font-serif tracking-widest text-xl font-semibold text-charcoal block">
+              NHK ADMIN
+            </span>
+            <h1 className="font-serif text-2xl text-charcoal font-medium mt-1">
+              Admin Access Only
+            </h1>
+            <p className="text-xs text-muted-grey mt-2 leading-relaxed">
+              This area is restricted to administrators. Enter your admin passcode to add and manage affiliate products.
+            </p>
+          </div>
+
+          <form onSubmit={handleLogin} className="space-y-4">
+            <div>
+              <input
+                type="password"
+                value={passcode}
+                onChange={(e) => setPasscode(e.target.value)}
+                placeholder="Enter admin passcode"
+                className="w-full px-4 py-3 rounded-xl bg-soft-sand/60 border border-soft-beige text-charcoal text-sm placeholder:text-muted-grey/60 focus:outline-none focus:ring-2 focus:ring-charcoal/20 transition-all text-center tracking-widest"
+                autoFocus
+              />
+            </div>
+
+            {loginError && (
+              <p className="text-xs text-red-600 font-medium">{loginError}</p>
+            )}
+
+            <button
+              type="submit"
+              disabled={isSubmittingAuth || !passcode}
+              className="w-full py-3.5 px-6 rounded-full bg-charcoal hover:bg-black text-white text-sm font-semibold transition-all shadow-sm hover:shadow disabled:opacity-50"
+            >
+              {isSubmittingAuth ? 'Verifying...' : 'Unlock Admin Portal'}
+            </button>
+          </form>
+
+          <div className="pt-4 border-t border-soft-beige text-[11px] text-muted-grey">
+            <Link href="/" className="hover:text-charcoal underline">
+              ← Return to public website
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Authenticated Admin Dashboard
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
       {/* Management Header */}
@@ -215,11 +333,15 @@ export default function AdminPage() {
               NHK
             </span>
             <span className="bg-charcoal text-white text-[10px] tracking-wider uppercase font-semibold px-2 py-0.5 rounded-full">
-              Product & Affiliate Manager
+              Admin Portal
+            </span>
+            <span className="text-[10px] text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full font-medium flex items-center gap-1">
+              <ShieldCheck className="w-3 h-3" />
+              Authenticated
             </span>
           </div>
           <p className="text-xs text-muted-grey mt-1">
-            Easily add products, set affiliate links, and manage your live curated catalog.
+            Exclusive admin area to publish products, edit pricing, and manage affiliate destinations.
           </p>
         </div>
 
@@ -230,6 +352,15 @@ export default function AdminPage() {
           >
             <Plus className="w-4 h-4 text-accent-gold" />
             <span>+ Add New Product</span>
+          </button>
+
+          <button
+            onClick={handleLogout}
+            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-soft-sand hover:bg-soft-beige text-charcoal text-xs font-medium transition-colors"
+            title="Sign out of Admin"
+          >
+            <LogOut className="w-3.5 h-3.5" />
+            <span>Sign Out</span>
           </button>
         </div>
       </div>
@@ -365,7 +496,7 @@ export default function AdminPage() {
             Your Catalog is Ready for Products
           </h2>
           <p className="text-sm text-muted-grey max-w-md mx-auto">
-            Click the button below to add your first product with its verified price, photo, and affiliate link.
+            Click the button below to add your first product with verified pricing and affiliate links.
           </p>
           <button
             onClick={handleOpenAdd}

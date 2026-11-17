@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, Sparkles, Compass, ShieldCheck, CheckCircle, Plus } from 'lucide-react';
+import { ArrowRight, Sparkles, Compass, ShieldCheck, CheckCircle } from 'lucide-react';
 import { getServerProducts } from '@/lib/products.server';
 import { CATEGORIES } from '@/data/categories';
 import ProductCard from '@/components/product/ProductCard';
@@ -148,24 +148,15 @@ export default function HomePage() {
                 Verified prices and authentic recommendations updated regularly.
               </p>
             </div>
-            <div className="flex items-center gap-3">
+            {allProducts.length > 0 && (
               <Link
-                href="/admin"
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-soft-sand hover:bg-soft-beige text-charcoal text-xs font-semibold border border-soft-beige transition-colors"
+                href="/explore"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-charcoal hover:text-accent-gold transition-colors"
               >
-                <Plus className="w-3.5 h-3.5 text-accent-gold" />
-                <span>Add Product</span>
+                <span>Explore all {allProducts.length} products</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </Link>
-              {allProducts.length > 0 && (
-                <Link
-                  href="/explore"
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-charcoal hover:text-accent-gold transition-colors"
-                >
-                  <span>Explore all {allProducts.length} products</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              )}
-            </div>
+            )}
           </div>
 
           {featuredProducts.length > 0 ? (
@@ -181,7 +172,7 @@ export default function HomePage() {
               ))}
             </div>
           ) : (
-            /* Clean, elegant placeholder when catalog is awaiting first products */
+            /* Clean editorial placeholder for visitors */
             <div className="bg-white rounded-3xl p-10 sm:p-14 text-center border border-soft-beige shadow-editorial space-y-4">
               <div className="w-12 h-12 rounded-2xl bg-soft-sand text-charcoal flex items-center justify-center mx-auto">
                 <Sparkles className="w-5 h-5 text-accent-gold" />
@@ -190,15 +181,15 @@ export default function HomePage() {
                 New Curations Arriving Shortly
               </h3>
               <p className="text-xs sm:text-sm text-muted-grey max-w-md mx-auto leading-relaxed">
-                We are curating mindful products and verified affiliate finds. You can add your favorite products and affiliate links anytime.
+                Our editorial team is handpicking aesthetic essentials and verified design objects. Explore our curated categories in the meantime.
               </p>
               <div className="pt-2">
                 <Link
-                  href="/admin"
+                  href="/categories"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-charcoal hover:bg-black text-white text-xs font-semibold shadow-sm transition-all"
                 >
-                  <Plus className="w-4 h-4 text-accent-gold" />
-                  <span>+ Add Product & Affiliate Link</span>
+                  <Compass className="w-4 h-4 text-accent-gold" />
+                  <span>Browse Collections</span>
                 </Link>
               </div>
             </div>
@@ -220,7 +211,7 @@ export default function HomePage() {
                   Pinterest Finds
                 </h2>
                 <p className="mt-2 text-sm text-muted-grey leading-relaxed">
-                  Staggered, high-resolution aesthetic objects trending across Pinterest. Pin them directly or follow our official board.
+                  Staggered, high-resolution aesthetic objects trending across Pinterest. Follow our official board for daily inspiration.
                 </p>
               </div>
 
@@ -230,7 +221,7 @@ export default function HomePage() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#E60023] hover:bg-[#d5001f] text-white text-xs font-semibold shadow-sm transition-all"
               >
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
                   <path d="M12 0a12 12 0 0 0-4.37 23.18c-.06-.9-.12-2.28.02-3.26l1-4.23s-.25-.52-.25-1.28c0-1.2.7-2.1 1.57-2.1.74 0 1.1.55 1.1 1.22 0 .74-.47 1.86-.72 2.89-.2.87.43 1.58 1.3 1.58 1.55 0 2.75-1.64 2.75-4 0-2.09-1.5-3.56-3.66-3.56-2.49 0-3.95 1.87-3.95 3.8 0 .75.29 1.56.65 2 .07.09.08.17.06.26l-.25 1.02c-.04.16-.14.2-.31.11-1.15-.54-1.87-2.23-1.87-3.6 0-2.93 2.13-5.62 6.14-5.62 3.23 0 5.73 2.3 5.73 5.38 0 3.2-2.02 5.78-4.83 5.78-.94 0-1.83-.49-2.14-1.07l-.58 2.22c-.21.82-.78 1.85-1.17 2.47A11.98 11.98 0 0 0 12 24c6.63 0 12-5.37 12-12S18.63 0 12 0z"/>
                 </svg>
                 <span>Follow @mukeshparihar7838</span>
@@ -259,13 +250,6 @@ export default function HomePage() {
                     <span>View Pinterest Profile</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </a>
-                  <Link
-                    href="/admin"
-                    className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-soft-sand text-charcoal text-xs font-semibold"
-                  >
-                    <Plus className="w-3.5 h-3.5 text-accent-gold" />
-                    <span>Add Pinterest Product</span>
-                  </Link>
                 </div>
               </div>
             )}

@@ -3,7 +3,7 @@
 import React, { useState, useMemo, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { Search, SlidersHorizontal, LayoutGrid, Columns, X, Plus } from 'lucide-react';
+import { Search, SlidersHorizontal, LayoutGrid, Columns, X } from 'lucide-react';
 import { CATEGORIES } from '@/data/categories';
 import ProductCard from '@/components/product/ProductCard';
 import MasonryGrid from '@/components/product/MasonryGrid';
@@ -79,26 +79,16 @@ function ExploreContent() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
-        <div className="max-w-2xl">
-          <span className="text-xs font-semibold uppercase tracking-widest text-accent-gold">
-            Product Discovery
-          </span>
-          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-charcoal font-medium mt-1">
-            Explore Curated Finds
-          </h1>
-          <p className="mt-2 text-sm sm:text-base text-muted-grey leading-relaxed">
-            Filter through design objects, everyday companions, and Pinterest finds. Every item features verified prices and direct affiliate source links.
-          </p>
-        </div>
-
-        <Link
-          href="/admin"
-          className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-charcoal hover:bg-black text-white text-xs font-semibold shadow-sm transition-all self-start sm:self-auto"
-        >
-          <Plus className="w-4 h-4 text-accent-gold" />
-          <span>Add New Product</span>
-        </Link>
+      <div className="max-w-2xl mb-10">
+        <span className="text-xs font-semibold uppercase tracking-widest text-accent-gold">
+          Product Discovery
+        </span>
+        <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-charcoal font-medium mt-1">
+          Explore Curated Finds
+        </h1>
+        <p className="mt-2 text-sm sm:text-base text-muted-grey leading-relaxed">
+          Filter through design objects, everyday companions, and Pinterest finds. Every item features verified prices and direct affiliate source links.
+        </p>
       </div>
 
       {/* Search & Control Bar */}
@@ -225,16 +215,15 @@ function ExploreContent() {
           <p className="font-serif text-xl text-charcoal font-medium">No products found</p>
           <p className="text-sm text-muted-grey max-w-md mx-auto">
             {products.length === 0
-              ? 'Your catalog is ready for products! Add your first product and affiliate link using the button below.'
+              ? 'Our curation team is handpicking new items. Check back shortly or explore our Pinterest moodboards.'
               : 'We couldn’t find anything matching your current filters.'}
           </p>
           <div className="pt-2">
             <Link
-              href="/admin"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-charcoal text-white text-xs font-medium hover:bg-black transition-colors"
+              href="/categories"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-charcoal text-white text-xs font-medium hover:bg-black transition-colors"
             >
-              <Plus className="w-4 h-4 text-accent-gold" />
-              <span>+ Add Product & Affiliate Link</span>
+              <span>Explore Categories</span>
             </Link>
           </div>
         </div>
