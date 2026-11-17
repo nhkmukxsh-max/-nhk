@@ -368,11 +368,10 @@ export default function AdminPage() {
       {/* Action Notification Banner */}
       {actionMessage && (
         <div
-          className={`p-4 rounded-2xl flex items-center gap-3 text-xs font-medium animate-fadeIn ${
-            actionMessage.type === 'success'
+          className={`p-4 rounded-2xl flex items-center gap-3 text-xs font-medium animate-fadeIn ${actionMessage.type === 'success'
               ? 'bg-green-50 text-green-800 border border-green-200'
               : 'bg-red-50 text-red-800 border border-red-200'
-          }`}
+            }`}
         >
           {actionMessage.type === 'success' ? (
             <CheckCircle2 className="w-4 h-4 text-green-600 shrink-0" />
@@ -436,21 +435,19 @@ export default function AdminPage() {
           <div className="flex items-center gap-2 bg-soft-sand p-1 rounded-full">
             <button
               onClick={() => setActiveTab('products')}
-              className={`px-4 py-2 rounded-full text-xs font-semibold transition-all ${
-                activeTab === 'products'
+              className={`px-4 py-2 rounded-full text-xs font-semibold transition-all ${activeTab === 'products'
                   ? 'bg-charcoal text-white shadow-sm'
                   : 'text-muted-grey hover:text-charcoal'
-              }`}
+                }`}
             >
               All Products ({products.length})
             </button>
             <button
               onClick={() => setActiveTab('links')}
-              className={`px-4 py-2 rounded-full text-xs font-semibold transition-all ${
-                activeTab === 'links'
+              className={`px-4 py-2 rounded-full text-xs font-semibold transition-all ${activeTab === 'links'
                   ? 'bg-charcoal text-white shadow-sm'
                   : 'text-muted-grey hover:text-charcoal'
-              }`}
+                }`}
             >
               Affiliate Links Audit
             </button>
@@ -474,11 +471,10 @@ export default function AdminPage() {
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors ${
-                selectedCategory === cat
+              className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors ${selectedCategory === cat
                   ? 'bg-charcoal text-white'
                   : 'bg-soft-sand text-charcoal hover:bg-soft-beige'
-              }`}
+                }`}
             >
               {cat}
             </button>
@@ -770,7 +766,7 @@ export default function AdminPage() {
                   placeholder="https://images.unsplash.com/..."
                   className="w-full px-3.5 py-2.5 rounded-xl bg-soft-sand/60 border border-soft-beige text-charcoal focus:outline-none focus:ring-2 focus:ring-charcoal/20"
                 />
-                
+
                 {/* Preset Image Picker */}
                 <div className="mt-2">
                   <span className="text-[10px] text-muted-grey block mb-1">Or choose a quick preset photo:</span>
@@ -780,11 +776,10 @@ export default function AdminPage() {
                         key={preset.label}
                         type="button"
                         onClick={() => setFormData({ ...formData, primaryImage: preset.url })}
-                        className={`text-[10px] px-2 py-1 rounded-lg border transition-colors ${
-                          formData.primaryImage === preset.url
+                        className={`text-[10px] px-2 py-1 rounded-lg border transition-colors ${formData.primaryImage === preset.url
                             ? 'bg-charcoal text-white border-charcoal'
                             : 'bg-soft-sand text-charcoal border-soft-beige hover:bg-soft-beige'
-                        }`}
+                          }`}
                       >
                         {preset.label}
                       </button>

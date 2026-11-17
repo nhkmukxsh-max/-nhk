@@ -3,7 +3,7 @@ import './globals.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import AffiliateDisclosureBanner from '@/components/ui/AffiliateDisclosureBanner';
-import { getServerProducts } from '@/lib/products.server';
+import { getServerProducts } from '@/lib/products';
 
 export const metadata: Metadata = {
   title: 'NHK — Discover Products Worth Loving | Curated Lifestyle & Design',

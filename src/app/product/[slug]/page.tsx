@@ -11,7 +11,7 @@ import {
   ArrowLeft,
   Share2,
 } from 'lucide-react';
-import { getServerProducts, getProductBySlug, getRelatedProducts } from '@/lib/products.server';
+import { getServerProducts, getProductBySlug, getRelatedProducts } from '@/lib/products';
 import { formatPrice } from '@/lib/utils';
 import PinterestShareButton from '@/components/product/PinterestShareButton';
 import ProductCard from '@/components/product/ProductCard';

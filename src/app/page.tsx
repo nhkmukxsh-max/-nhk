@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Sparkles, Compass, ShieldCheck, CheckCircle } from 'lucide-react';
-import { getServerProducts } from '@/lib/products.server';
+import { getServerProducts } from '@/lib/products';
 import { CATEGORIES } from '@/data/categories';
 import ProductCard from '@/components/product/ProductCard';
 import MasonryGrid from '@/components/product/MasonryGrid';

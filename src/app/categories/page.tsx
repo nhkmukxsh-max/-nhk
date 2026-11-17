@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Compass } from 'lucide-react';
 import { CATEGORIES } from '@/data/categories';
-import { getServerProducts } from '@/lib/products.server';
+import { getServerProducts } from '@/lib/products';
 import ProductCard from '@/components/product/ProductCard';
 
 export const revalidate = 0;

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { getServerProducts, saveServerProducts } from '@/lib/products.server';
+import { getServerProducts, saveServerProducts } from '@/lib/products';
 import { Product } from '@/types';
 import { generateSlug } from '@/lib/utils';
 
