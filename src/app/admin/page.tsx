@@ -271,13 +271,22 @@ export default function AdminPage() {
     return (
       <div className="min-h-[70vh] flex items-center justify-center px-4 py-16">
         <div className="w-full max-w-md bg-white rounded-3xl p-8 sm:p-10 border border-soft-beige shadow-editorial text-center space-y-6">
-          <div className="w-12 h-12 rounded-2xl bg-soft-sand flex items-center justify-center mx-auto text-charcoal">
-            <Lock className="w-5 h-5 text-accent-gold" />
+          <div className="relative w-20 h-20 rounded-2xl overflow-hidden shadow-md mx-auto bg-black border border-charcoal/20 shrink-0">
+            <Image
+              src="/logo.jpg"
+              alt="NHK Logo"
+              fill
+              priority
+              className="object-cover"
+            />
           </div>
 
           <div>
             <span className="font-serif tracking-widest text-xl font-semibold text-charcoal block">
-              NHK ADMIN
+              NHK
+            </span>
+            <span className="text-[10px] tracking-widest uppercase font-semibold text-accent-gold block mb-1">
+              Affiliate Marketing
             </span>
             <h1 className="font-serif text-2xl text-charcoal font-medium mt-1">
               Admin Access Only
@@ -327,22 +336,32 @@ export default function AdminPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
       {/* Management Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-soft-beige">
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="font-serif tracking-widest text-2xl font-bold text-charcoal">
-              NHK
-            </span>
-            <span className="bg-charcoal text-white text-[10px] tracking-wider uppercase font-semibold px-2 py-0.5 rounded-full">
-              Admin Portal
-            </span>
-            <span className="text-[10px] text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full font-medium flex items-center gap-1">
-              <ShieldCheck className="w-3 h-3" />
-              Authenticated
-            </span>
+        <div className="flex items-center gap-3.5">
+          <div className="relative w-12 h-12 rounded-xl overflow-hidden shadow-sm border border-charcoal/10 shrink-0 bg-black">
+            <Image
+              src="/logo.jpg"
+              alt="NHK Logo"
+              fill
+              className="object-cover"
+            />
           </div>
-          <p className="text-xs text-muted-grey mt-1">
-            Exclusive admin area to publish products, edit pricing, and manage affiliate destinations.
-          </p>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="font-serif tracking-widest text-2xl font-bold text-charcoal">
+                NHK
+              </span>
+              <span className="bg-charcoal text-white text-[10px] tracking-wider uppercase font-semibold px-2 py-0.5 rounded-full">
+                Admin Portal
+              </span>
+              <span className="text-[10px] text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full font-medium flex items-center gap-1">
+                <ShieldCheck className="w-3 h-3" />
+                Authenticated
+              </span>
+            </div>
+            <p className="text-xs text-muted-grey mt-0.5">
+              Exclusive admin area to publish products, edit pricing, and manage affiliate destinations.
+            </p>
+          </div>
         </div>
 
         <div className="flex items-center gap-3">

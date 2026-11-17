@@ -6,11 +6,12 @@ import AffiliateDisclosureBanner from '@/components/ui/AffiliateDisclosureBanner
 import { getServerProducts } from '@/lib/products';
 
 export const metadata: Metadata = {
-  title: 'NHK — Discover Products Worth Loving | Curated Lifestyle & Design',
+  title: 'NHK — Discover Products Worth Loving | Affiliate Marketing',
   description:
-    'NHK is a premium product discovery brand curating thoughtfully designed everyday carry, tech essentials, home sanctuary pieces, and botanical lifestyle finds.',
+    'NHK is a premium affiliate marketing and product discovery brand curating thoughtfully designed everyday carry, tech essentials, home sanctuary pieces, and lifestyle finds.',
   keywords: [
     'NHK',
+    'NHK Affiliate Marketing',
     'curated products',
     'product discovery',
     'minimalist essentials',
@@ -18,32 +19,36 @@ export const metadata: Metadata = {
     'everyday carry',
     'tech accessories',
     'pinterest finds',
-    'editorial recommendations',
+    'affiliate marketing',
   ],
-  authors: [{ name: 'NHK Editorial Team' }],
+  authors: [{ name: 'NHK Team' }],
   metadataBase: new URL('https://nhkcurated.com'),
+  icons: {
+    icon: '/logo.jpg',
+    apple: '/logo.jpg',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: 'https://nhkcurated.com',
-    siteName: 'NHK',
+    siteName: 'NHK Affiliate Marketing',
     title: 'NHK — Discover Products Worth Loving',
     description:
       'Discover thoughtfully curated products, trending Pinterest finds, and everyday essentials evaluated for lasting quality.',
     images: [
       {
-        url: 'https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=1200&auto=format&fit=crop',
-        width: 1200,
-        height: 630,
-        alt: 'NHK Curated Lifestyle Collection',
+        url: '/logo.jpg',
+        width: 1024,
+        height: 1024,
+        alt: 'NHK Affiliate Marketing Logo',
       },
     ],
   },
   twitter: {
-    card: 'summary_large_image',
+    card: 'summary',
     title: 'NHK — Discover Products Worth Loving',
     description: 'Curated products, everyday upgrades, and quiet essentials.',
-    images: ['https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=1200'],
+    images: ['/logo.jpg'],
   },
   other: {
     'pinterest-rich-pin': 'true',

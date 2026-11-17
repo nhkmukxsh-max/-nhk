@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Search, Menu, X, ArrowUpRight } from 'lucide-react';
 import SearchModal from '@/components/ui/SearchModal';
@@ -28,18 +29,30 @@ export default function Header({ products = [] }: HeaderProps) {
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-warm-white/90 backdrop-blur-md border-b border-soft-beige/80 transition-all">
+      <header className="sticky top-0 z-40 bg-warm-white/95 backdrop-blur-md border-b border-soft-beige/80 transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
-            {/* NHK Wordmark Logo */}
+            {/* NHK Logo & Wordmark */}
             <div className="flex items-center">
-              <Link href="/" className="group flex items-baseline gap-2">
-                <span className="font-serif tracking-widest text-2xl sm:text-3xl font-semibold text-charcoal group-hover:text-black transition-colors">
-                  N H K
-                </span>
-                <span className="hidden md:inline-block text-[10px] tracking-widest uppercase font-medium text-muted-grey border-l border-soft-beige pl-2">
-                  Curated
-                </span>
+              <Link href="/" className="group flex items-center gap-3">
+                <div className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-xl overflow-hidden shadow-sm border border-charcoal/10 shrink-0 bg-black">
+                  <Image
+                    src="/logo.jpg"
+                    alt="NHK Affiliate Marketing Logo"
+                    fill
+                    priority
+                    sizes="48px"
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-serif tracking-widest text-xl sm:text-2xl font-bold text-charcoal group-hover:text-black transition-colors leading-none">
+                    NHK
+                  </span>
+                  <span className="text-[9px] tracking-widest uppercase font-semibold text-accent-gold mt-1">
+                    Affiliate Marketing
+                  </span>
+                </div>
               </Link>
             </div>
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowUpRight, Heart, Lock } from 'lucide-react';
 import { CATEGORIES } from '@/data/categories';
 
@@ -13,14 +14,30 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8">
           {/* Brand Col */}
           <div className="lg:col-span-2 space-y-4">
-            <Link href="/" className="font-serif tracking-widest text-3xl font-semibold text-charcoal block">
-              N H K
+            <Link href="/" className="inline-flex items-center gap-3 group">
+              <div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-2xl overflow-hidden shadow-sm border border-charcoal/10 shrink-0 bg-black">
+                <Image
+                  src="/logo.jpg"
+                  alt="NHK Affiliate Marketing Logo"
+                  fill
+                  sizes="56px"
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <div className="flex flex-col">
+                <span className="font-serif tracking-widest text-2xl font-bold text-charcoal leading-none">
+                  NHK
+                </span>
+                <span className="text-[10px] tracking-widest uppercase font-semibold text-accent-gold mt-1">
+                  Affiliate Marketing
+                </span>
+              </div>
             </Link>
-            <p className="font-serif italic text-lg text-charcoal/80">
+            <p className="font-serif italic text-base text-charcoal/80">
               &ldquo;Discover Products Worth Loving.&rdquo;
             </p>
             <p className="text-xs text-muted-grey leading-relaxed max-w-sm">
-              NHK is an independent lifestyle discovery publication. We curate timeless essentials, everyday upgrades, and design-led objects tested for enduring quality and intentional living.
+              NHK is an independent affiliate marketing and product discovery publication. We curate timeless essentials, everyday upgrades, and design-led objects tested for enduring quality and intentional living.
             </p>
 
             {/* Social Links */}
@@ -141,7 +158,7 @@ export default function Footer() {
 
         {/* Copyright */}
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-muted-grey gap-3">
-          <p>© {currentYear} NHK Editorial. All rights reserved.</p>
+          <p>© {currentYear} NHK Affiliate Marketing. All rights reserved.</p>
           <p className="flex items-center gap-1">
             Crafted with <Heart className="w-3.5 h-3.5 text-accent-terracotta fill-accent-terracotta" /> for thoughtful discovery.
           </p>
